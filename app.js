@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const apiRouter = require('./Routers/apiRouter');
 const bodyParser = require('body-parser');
-const DB_URL = 'mongodb://localhost:27017/northcoders_news';
+const { DB_URL } = require('./config.js');
 
 
 const app = express();

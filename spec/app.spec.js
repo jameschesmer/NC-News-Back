@@ -96,6 +96,8 @@ describe('Northcoders News API', () => {
         .get('/api/articles')
         .expect(200)
         .then(response => {
+          console.log(response.body, '<<<<<<<<')
+          console.log(response.body.articles)
           expect(response.body.articles[0]).to.contain.keys('_id', 'title', 'votes', 'created_by', 'body', 'created_at', 'belongs_to');
           expect(response.body.articles.length).to.equal(4);
         })
@@ -106,6 +108,7 @@ describe('Northcoders News API', () => {
         .get(`/api/articles/${article1._id}`)
         .expect(200)
         .then(response => {
+          console.log(response.body.articles)
           expect(response.body.articles).to.contain.keys('_id', 'title', 'votes', 'created_by', 'body', 'created_at', 'belongs_to');
         })
     })
@@ -214,6 +217,15 @@ describe('Northcoders News API', () => {
               .then(response => {
                 expect(response.body.msg).to.equal('Page Not Found');
               })
+          })
+      })
+      it('GETs all comments', () => {
+        return request
+          .get('/api/comments')
+          .expect(200)
+          .then(response => {
+            expect(response.body.comment[0]).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
+            expect(response.body.comment.length).to.equal(8);
           })
       })
     })
