@@ -23,6 +23,8 @@ const config = {
 
 module.exports = config[ENV];
 
+npm run seed:test to seed database
+
 ### Prerequisites
 supertest
 nodemon

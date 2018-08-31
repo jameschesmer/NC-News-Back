@@ -7,8 +7,8 @@
     "test": "mocha spec/ --exit",
     "start": "node listen.js",
     "dev": "nodemon index.js",
-    "seed:dev": "NODE_ENV=development node seed/seed.js",
-    "seed:test": "NODE_ENV=test node seed/seed.js",
+    "seed:dev": "NODE_ENV=development node seed/seed.db.js",
+    "seed:test": "NODE_ENV=test node seed/seed.db.js",
     "seed:production": "NODE_ENV=production node seed/seed.db.js"
   },
   "author": "",
