@@ -163,11 +163,10 @@ describe('Northcoders News API', () => {
       return request
         .patch(`/api/articles/${articleID}?vote=up`)
         .expect(200)
-        //.then(request.patch(`/api/articles/${articleID}?vote=up`))
         .then(response => {
           expect(response.body.article._id).to.equal(`${articleID}`);
           expect(response.body.article).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
-          expect(response.body.article.votes).to.equal(1);
+          expect(response.body.article.votes).to.equal(articlesdata[0].votes + 1);
         })
     });
     it('PATCH can Decrement the votes of an article by one', () => {
@@ -178,7 +177,7 @@ describe('Northcoders News API', () => {
         .then(response => {
           expect(response.body.article._id).to.equal(`${articleID}`);
           expect(response.body.article).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
-          expect(response.body.article.votes).to.equal(-1);
+          expect(response.body.article.votes).to.equal(articlesdata[0].votes - 1);
         })
     });
 
@@ -192,7 +191,7 @@ describe('Northcoders News API', () => {
           .then(response => {
             expect(response.body.comment._id).to.equal(`${commentID}`);
             expect(response.body.comment).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
-            expect(response.body.comment.votes).to.equal(8);
+            expect(response.body.comment.votes).to.equal(commentsdata[0].votes + 1);
           })
       })
       it('PATCH updates the number of votes of a comment', () => {
@@ -203,7 +202,7 @@ describe('Northcoders News API', () => {
           .then(response => {
             expect(response.body.comment._id).to.equal(`${commentID}`);
             expect(response.body.comment).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
-            expect(response.body.comment.votes).to.equal(6);
+            expect(response.body.comment.votes).to.equal(commentsdata[0].votes - 1);
           })
       })
       it('DELETE removes a comment', () => {
@@ -228,7 +227,17 @@ describe('Northcoders News API', () => {
           .expect(200)
           .then(response => {
             expect(response.body.comment[0]).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
-            expect(response.body.comment.length).to.equal(8);
+            expect(response.body.comment.length).to.equal(commentsdata.length);
+          })
+      })
+      it('GETs a comment by id', () => {
+        commentID = commentsdata[0]._id
+        return request
+          .get(`/api/comments/${commentID}`)
+          .expect(200)
+          .then(response => {
+            expect(response.body.comment).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
+            expect(response.body.comment._id).to.equal(`${commentID}`);
           })
       })
     })
