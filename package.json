@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha spec/ --exit",
-    "start": "node index.js",
+    "start": "node listen.js",
     "dev": "nodemon index.js",
-    "seed:dev": "NODE_ENV=development seed/seed.js",
-    "seed:test": "NODE_ENV=test seed/seed.js",
-    "seed:production": "NODE_ENV=production seed/seed.db.js"
+    "seed:dev": "NODE_ENV=development node seed/seed.js",
+    "seed:test": "NODE_ENV=test node seed/seed.js",
+    "seed:production": "NODE_ENV=production node seed/seed.db.js"
   },
   "author": "",
   "license": "ISC",

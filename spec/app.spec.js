@@ -26,7 +26,7 @@ describe('Northcoders News API', () => {
         .expect(200)
         .then(response => {
           expect(response.body.users[0]).to.contain.keys('_id', 'username', 'name', 'avatar_url');
-          expect(response.body.users.length).to.equal(2);
+          expect(response.body.users.length).to.equal(usersdata.length);
         })
     })
     it('GETs a specific user if a valid user is used', () => {
@@ -55,7 +55,7 @@ describe('Northcoders News API', () => {
         .expect(200)
         .then(response => {
           expect(response.body.topics[0]).to.contain.keys('_id', 'title', 'slug');
-          expect(response.body.topics.length).to.equal(2);
+          expect(response.body.topics.length).to.equal(topicsdata.length);
         })
     })
     it('GETs all the articles for a certain topic', () => {
@@ -97,7 +97,7 @@ describe('Northcoders News API', () => {
         .expect(200)
         .then(response => {
           expect(response.body.articles[0]).to.contain.keys('_id', 'title', 'votes', 'created_by', 'body', 'created_at', 'belongs_to');
-          expect(response.body.articles.length).to.equal(4);
+          expect(response.body.articles.length).to.equal(articlesdata.length);
         })
     })
     it('GETs a specific article if a valid id is used', () => {
