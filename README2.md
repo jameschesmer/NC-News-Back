@@ -1,6 +1,8 @@
 ###Northcoders News
 A restful API that gets data from the Northcoders news database.
 
+https://northcoders-news-jwrc.herokuapp.com/api/
+
 ###Getting Started
 create config 
 

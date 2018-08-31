@@ -14,6 +14,10 @@ mongoose.connect(DB_URL, { useNewUrlParser: true })
 
 app.use('/api', apiRouter);
 
+app.get('/*', (req, res, next) => {
+  next({ status: 404, msg: 'Page Not Found' });
+})
+
 app.use((err, req, res, next) => {
   if (err.status) res.status(err.status).send(err);
   else res.status(500).send({ msg: 'Internal server error', status: 500 });
