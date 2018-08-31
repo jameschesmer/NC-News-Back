@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const DB_URL = 'mongodb://localhost:27017/northcoders_news';
-const usersData = require('./devData/users.json');
-const topicsData = require('./devData/topics.json');
-const articlesData = require('./devData/articles.json');
-const commentsData = require('./devData/comments.json');
+const usersData = require('./testData/users.json');
+const topicsData = require('./testData/topics.json');
+const articlesData = require('./testData/articles.json');
+const commentsData = require('./testData/comments.json');
 const { User, Article, Comment, Topic } = require('../models');
 const { createRef, formattArticleData, formattedComments } = require('../utils');
 

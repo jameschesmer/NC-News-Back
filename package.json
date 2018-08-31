@@ -6,7 +6,10 @@
   "scripts": {
     "test": "mocha spec/ --exit",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seed:dev": "NODE_ENV=development seed/seed.js",
+    "seed:test": "NODE_ENV=test seed/seed.js",
+    "seed:production": "NODE_ENV=production seed/seed.js"
   },
   "author": "",
   "license": "ISC",

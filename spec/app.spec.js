@@ -96,8 +96,6 @@ describe('Northcoders News API', () => {
         .get('/api/articles')
         .expect(200)
         .then(response => {
-          console.log(response.body, '<<<<<<<<')
-          console.log(response.body.articles)
           expect(response.body.articles[0]).to.contain.keys('_id', 'title', 'votes', 'created_by', 'body', 'created_at', 'belongs_to');
           expect(response.body.articles.length).to.equal(4);
         })
@@ -108,7 +106,7 @@ describe('Northcoders News API', () => {
         .get(`/api/articles/${article1._id}`)
         .expect(200)
         .then(response => {
-          console.log(response.body.articles)
+          expect(response.body.articles._id).to.equal(`${article1._id}`);
           expect(response.body.articles).to.contain.keys('_id', 'title', 'votes', 'created_by', 'body', 'created_at', 'belongs_to');
         })
     })
@@ -167,6 +165,7 @@ describe('Northcoders News API', () => {
         .expect(200)
         //.then(request.patch(`/api/articles/${articleID}?vote=up`))
         .then(response => {
+          expect(response.body.article._id).to.equal(`${articleID}`);
           expect(response.body.article).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
           expect(response.body.article.votes).to.equal(1);
         })
@@ -177,6 +176,7 @@ describe('Northcoders News API', () => {
         .patch(`/api/articles/${articleID}?vote=down`)
         .expect(200)
         .then(response => {
+          expect(response.body.article._id).to.equal(`${articleID}`);
           expect(response.body.article).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
           expect(response.body.article.votes).to.equal(-1);
         })
@@ -190,6 +190,7 @@ describe('Northcoders News API', () => {
           .patch(`/api/comments/${commentID}?vote=up`)
           .expect(200)
           .then(response => {
+            expect(response.body.comment._id).to.equal(`${commentID}`);
             expect(response.body.comment).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
             expect(response.body.comment.votes).to.equal(8);
           })
@@ -200,6 +201,7 @@ describe('Northcoders News API', () => {
           .patch(`/api/comments/${commentID}?vote=down`)
           .expect(200)
           .then(response => {
+            expect(response.body.comment._id).to.equal(`${commentID}`);
             expect(response.body.comment).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
             expect(response.body.comment.votes).to.equal(6);
           })
@@ -211,6 +213,7 @@ describe('Northcoders News API', () => {
           .expect(200)
           .then(response => {
             expect(response.body.comment).to.contain.keys('_id', 'body', 'votes', 'created_at', 'belongs_to', 'created_by');
+            expect(response.body.comment._id).to.equal(`${commentID}`);
             return request
               .get(`/api/comments/${commentID}`)
               .expect(404)

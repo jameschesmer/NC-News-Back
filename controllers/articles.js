@@ -8,27 +8,27 @@ const getArticles = (req, res, next) => {
     .lean()
     .populate('created_by')
     .then(articles => {
-      const articleID = articles.map(article => {
-        return article._id
+      const commentsPerArticle = articles.map(article => {
+        return Comment.count({ belongs_to: article._id })
       })
-      console.log(articleID, 'IDS!!')
       return Promise.all([
         articles,
-        ///this is an array so need a promise all or spread
-        Comment.find({ belongs_to: [...articleID] })
-        //   for (i = 0; i < articleID.length; i++) {
-        //   Comment.find({ belongs_to: articleID[i] })
-        //   }; 
+        Promise.all(commentsPerArticle)
       ])
     })
-    .then(([articles, comments]) => {
-      let comment_count = comments.length;
+    .then(([articles, comment_count]) => {
       if (!articles[0]) return Promise.reject({ status: 404, msg: 'Page Not Found' })
       if (articles.length === 1) {
         articles = articles[0];
-        res.status(200).send({ articles: { ...articles, comment_count } });
+        res.status(200).send({ articles: { ...articles, comment_count: comment_count[0] } });
       }
-      else res.status(200).send({ articles: { articles, comment_count } });
+      else {
+        const obj = [];
+        for (i = 0; i < articles.length; i++) {
+          obj.push({ ...articles[i], comment_count: comment_count[i] })
+        }
+        res.status(200).send({ articles: obj });
+      }
     })
     .catch(err => {
       if (err.name === 'CastError') next({ status: 400, msg: 'Bad Request' });
