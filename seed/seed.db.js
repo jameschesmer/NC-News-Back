@@ -9,7 +9,7 @@ const commentsData = require('./devData/comments.json');
 mongoose.connect(DB_URL, { useNewUrlParser: true })
   .then(() => {
     console.log(`Connected to ${DB_URL}...`);
-    return seedDB(usersData, topicsData, articlesData, commentsData)
+    return seedDB(usersData, topicsData, articlesData, commentsData);
   })
   .then(() => {
     console.log(`Seeded data for database ${DB_URL}`);
@@ -17,5 +17,5 @@ mongoose.connect(DB_URL, { useNewUrlParser: true })
   })
   .then(() => {
     console.log(`Disconnected from ${DB_URL}`);
-  })
+  });
 

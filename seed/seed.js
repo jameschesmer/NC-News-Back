@@ -9,24 +9,24 @@ const seedDB = (usersData, topicsData, articlesData, commentsData) => {
       return Promise.all([
         User.insertMany(usersData),
         Topic.insertMany(topicsData)
-      ])
+      ]);
     })
     ///then insert articles
     .then(([users, topics]) => {
-      const usernameLink = createRef(usersData, users, 'username', '_id')
+      const usernameLink = createRef(usersData, users, 'username', '_id');
       const slugLink = createRef(topicsData, topics, 'slug', 'title');
       return Promise.all([
         formattArticleData(articlesData, usernameLink, slugLink),
         users,
         topics
-      ])
+      ]);
     })
     .then(([formattedArticle, users, topics]) => {
       return Promise.all([
         Article.insertMany(formattedArticle),
         users,
         topics
-      ])
+      ]);
     })
     ///then insert comments
     .then(([articles, users, topics]) => {
@@ -35,9 +35,9 @@ const seedDB = (usersData, topicsData, articlesData, commentsData) => {
         topics,
         articles,
         Comment.insertMany(formattedComments(users, articles, commentsData))
-      ])
+      ]);
     })
     .catch(console.log);
-}
+};
 
 module.exports = seedDB;

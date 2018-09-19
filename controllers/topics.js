@@ -2,8 +2,8 @@ const Topic = require('../models/Topic');
 const Article = require('../models/Article');
 
 const getTopics = (req, res, next) => {
-  let query = {}
-  //if (req.params.user_id) query = { _id: req.params.actor_id };
+  let query = {};
+  //if (req.params.topic_id) query = { _id: req.params.topic_id };
   return Topic.find(query)
     .then(topics => {
       res.status(200).send({ topics });
@@ -11,11 +11,11 @@ const getTopics = (req, res, next) => {
     .catch(err => {
       if (err.name === 'CastError') next({ status: 400, msg: 'Bad Request' });
       else next(err);
-    })
-}
+    });
+};
 
 const getArticlesByTopic = (req, res, next) => {
-  let query = {}
+  let query = {};
   if (req.params.topic_slug) query = { belongs_to: req.params.topic_slug };
   return Article.find(query)
     .then(articles => {
@@ -25,17 +25,17 @@ const getArticlesByTopic = (req, res, next) => {
     .catch(err => {
       if (err.name === 'CastError') next({ status: 400, msg: 'Bad Request' });
       else next(err);
-    })
-}
+    });
+};
 
 const postANewAtilcleWithTopic = (req, res, next) => {
   Article.create({ ...req.body, belongs_to: req.params.topic_slug })
     .then(article => {
-      res.status(201).send({ article })
+      res.status(201).send({ article });
     })
     .catch(err => {
       next(err);
-    })
-}
+    });
+};
 
 module.exports = { getTopics, getArticlesByTopic, postANewAtilcleWithTopic };

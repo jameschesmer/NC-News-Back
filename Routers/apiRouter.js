@@ -6,7 +6,8 @@ const commentsRouter = require('./commentsRouter');
 
 apiRouter.route('/')
   .get((req, res, next) => {
-    res.render('../view/pages/api.ejs')
+    if (err) next(err);
+    res.render('../view/pages/api.ejs');
   });
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/topics', topicsRouter);
