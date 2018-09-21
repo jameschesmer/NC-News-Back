@@ -40,6 +40,7 @@ const getCommentsForAnArticle = (req, res, next) => {
   let query = {};
   if (req.params.article_id) query = { belongs_to: req.params.article_id };
   return Comment.find(query)
+    .populate('created_by')
     .then(comments => {
       if (!comments[0]) return Promise.reject({ status: 404, msg: 'Page Not Found' });
       else res.status(200).send({ comments });
