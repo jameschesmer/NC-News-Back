@@ -4,6 +4,7 @@ const getComments = (req, res, next) => {
   let query = {};
   if (req.params.comment_id) query = { _id: req.params.comment_id };
   return Comment.find(query)
+    .lean()
     .populate('created_by')
     .then(comment => {
       if (!comment[0]) return Promise.reject({ status: 404, msg: 'Page Not Found' });
